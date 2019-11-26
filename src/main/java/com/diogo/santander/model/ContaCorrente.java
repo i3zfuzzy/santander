@@ -21,6 +21,9 @@ public class ContaCorrente {
 
     }
 
+    public ContaCorrente() {
+    }
+
     public Cliente getTitular() {
         return titular;
     }
