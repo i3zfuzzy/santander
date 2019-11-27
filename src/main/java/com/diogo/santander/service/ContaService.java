@@ -3,12 +3,17 @@ package com.diogo.santander.service;
 import com.diogo.santander.model.Cliente;
 import com.diogo.santander.model.ContaCorrente;
 import com.diogo.santander.repository.ContaRepository;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.sun.org.apache.xerces.internal.impl.xs.util.XSInputSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.spec.PSource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,5 +39,24 @@ public class ContaService {
         contaRepository.save(contaCorrente);
 
     }
+    public String deposito(double valor, int numeroConta) {
+        String msg = "";
+        int qtdconta = contaRepository.validaNumConta(numeroConta);
+        if(qtdconta == 0) {
+            msg = "Conta inexistente";
+        }else {
+            double saldo = contaRepository.buscaSaldo(numeroConta);
+            double saldoAtualizado = saldo + valor;
+            contaRepository.atualizarSaldo(saldoAtualizado, numeroConta);
+            msg = "deposito efetuado";
+        }
+        return msg;
+    }
+    public void pagar(double valor, int numeroConta){
+        double saldo = contaRepository.buscaSaldo(numeroConta);
+        double saldoAtualizado = saldo - valor;
+        contaRepository.atualizarSaldo(saldoAtualizado, numeroConta);
+    }
+
 
 }

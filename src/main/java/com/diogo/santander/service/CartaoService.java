@@ -36,4 +36,13 @@ public class CartaoService {
         cliente.setCartoesCreditos(listaCartoes);
     }
 
+    public void pagarCartao (double valor, String numeroCartao) {
+        double limiteAtual = cartaoRepository.consultaLimite(numeroCartao);
+        double limiteAtualizado = limiteAtual - valor;
+        cartaoRepository.atualizaLimiteFatura(numeroCartao, limiteAtualizado, valor);
+
+
+
+    }
+
 }
