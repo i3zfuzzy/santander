@@ -18,8 +18,6 @@ public interface ContaRepository extends JpaRepository<ContaCorrente, Integer> {
     double buscaSaldo(int numeroConta);
 
     @Modifying
-    @Transactional
     @Query(value = "UPDATE conta_corrente SET saldo = ?1 WHERE numero = ?2", nativeQuery = true)
     void atualizarSaldo(double saldoAtualizado, int numeroConta);
-
 }

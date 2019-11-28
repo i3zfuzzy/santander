@@ -29,4 +29,9 @@ public class ClienteController {
 
         return cliente;
     }
+    @GetMapping(value = "")
+    public List<Cliente> listarClientes(){
+       return clienteService.listarClientes();
+    }
+
 }

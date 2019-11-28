@@ -57,6 +57,12 @@ public class ContaService {
         double saldoAtualizado = saldo - valor;
         contaRepository.atualizarSaldo(saldoAtualizado, numeroConta);
     }
+    public void sacar(double valor, int numeroConta){
+        double saldo = contaRepository.buscaSaldo(numeroConta);
+        double saldoAtualizado = saldo - valor;
+        contaRepository.atualizarSaldo(saldoAtualizado, numeroConta);
+    }
+
 
 
 }

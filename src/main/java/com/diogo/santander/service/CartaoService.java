@@ -3,6 +3,7 @@ package com.diogo.santander.service;
 import com.diogo.santander.model.CartaoCredito;
 import com.diogo.santander.model.Cliente;
 import com.diogo.santander.repository.CartaoRepository;
+import com.diogo.santander.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class CartaoService {
 
     @Autowired
     private CartaoRepository cartaoRepository;
+    @Autowired
+    private ContaRepository contaRepository;
 
     public void cadastroCartao(Cliente cliente) {
         List<Integer> numCard = new ArrayList<>();
@@ -41,8 +44,16 @@ public class CartaoService {
         double limiteAtualizado = limiteAtual - valor;
         cartaoRepository.atualizaLimiteFatura(numeroCartao, limiteAtualizado, valor);
 
-
-
+    }
+    public void aumentaLimite(double valor, String numeroCartao){
+        double limiteAtual = cartaoRepository.consultaLimite(numeroCartao);
+        double limiteAtualizado = limiteAtual + valor;
+        cartaoRepository.atualizaLimite(numeroCartao, limiteAtualizado);
     }
 
+    public void pagfatura(double valor, String numeroCartao){
+        double faturaAtual = cartaoRepository.consultaFatura(numeroCartao);
+        double faturaAtualizada = faturaAtual - valor;
+        cartaoRepository.atualizaFatura(numeroCartao, faturaAtualizada);
+    }
 }

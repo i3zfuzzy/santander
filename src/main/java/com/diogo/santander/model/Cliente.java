@@ -13,7 +13,7 @@ public class Cliente {
     private String profissao;
     @OneToMany
     private List<ContaCorrente> contasCorrente;
-    @OneToMany
+    @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartaoCredito> cartoesCreditos;
 
     public Cliente() {

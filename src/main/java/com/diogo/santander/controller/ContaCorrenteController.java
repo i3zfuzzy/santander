@@ -36,5 +36,24 @@ public class ContaCorrenteController {
         return msg;
     }
 
+    @PostMapping(value = "/sacar/{valor}/{numeroConta}")
+    public String sacar(@PathVariable double valor, @PathVariable int numeroConta){
+        String msg = "";
+        if(valor <= 0){
+            msg = "valor invalido";
+        }else{
+            contaService.sacar(valor, numeroConta);
+        }
+        return msg;
+    }
 
+    @PostMapping(value = "/aumentalimite/{valor}/{numeroCartao}")
+    public void aumentaLimite(@PathVariable double valor, @PathVariable String numeroCartao){
+        cartaoService.aumentaLimite(valor, numeroCartao);
+    }
+
+    @PostMapping(value = "/pagfat/{valor}/{numeroCartao}")
+    public void pagfatura(@PathVariable double valor, @PathVariable String numeroCartao){
+        cartaoService.pagfatura(valor, numeroCartao);
+    }
 }

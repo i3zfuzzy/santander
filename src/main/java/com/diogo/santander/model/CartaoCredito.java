@@ -10,8 +10,8 @@ public class CartaoCredito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String numero;
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cliente_id")
     private Cliente titular;
     private double limite;
     private double fatura;
